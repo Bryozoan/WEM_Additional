@@ -16,6 +16,7 @@ import numpy as np
 #testingbox
 ILMfile = r'C:\Users\GISUser\Downloads\NewLabelsTest\Tract Ownership List.xlsx'
 
+CSVfile = r'C:\Users\duckm\Downloads\QGIStest'
 
 #######################
 
@@ -34,8 +35,15 @@ def labels(ILMfile):
     QData.insert(1,'WEM I Ownership',0)
     
     WEMOwn = tractOwn.groupby(["Section","Name"])['Net Mineral Acres'].sum().reset_index()
-    WEMIOwn = WEMOwn.where(tractOwn['Name'].eq("WEM Uintah, LLC"))
-    WEMIOwn.to_csv(r'C:\Users\GISUser\Downloads\NewLabelsTest\WEMILabels.csv')
+    WEMOwn['Section'] = WEMOwn['Section'].str[2:]
+    #WEMIOwn = WEMOwn.where(tractOwn['Name'].eq("WEM Uintah, LLC"))
+    WEMIOwn = WEMOwn.loc[(WEMOwn["Name"] == "WEM Uintah, LLC")]
+    WEMIIOwn = WEMOwn.loc[(WEMOwn["Name"] == "WEM Uintah II, LLC")]
+    WEMIIIOwn = WEMOwn.loc[(WEMOwn["Name"] == "WEM Uintah III, LLC")]
+    
+    WEMIOwn.to_csv(CSVfile+r'\WEM1Labels.csv')
+    WEMIIOwn.to_csv(CSVfile+r'\WEM2Labels.csv')
+    WEMIIIOwn.to_csv(CSVfile+r'\WEM3Labels.csv')
     
     
 # =============================================================================
@@ -49,7 +57,7 @@ def labels(ILMfile):
 # 
 # =============================================================================
                                         
-    return(tractOwn, QData, dSize, WEMOwn)
+    return(tractOwn, QData, dSize, WEMOwn, WEMIOwn, WEMIIOwn, WEMIIIOwn)
     
     
-tractOwn, QData, dSize, WEMOwn = labels(r'C:\Users\GISUser\Downloads\NewLabelsTest\Tract Ownership List.xlsx')
+tractOwn, QData, dSize, WEMOwn, WEMIOwn, WEMIIOwn, WEMIIIOwn = labels(CSVfile+r'\Tract Ownership List.xlsx')
