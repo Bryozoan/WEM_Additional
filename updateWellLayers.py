@@ -68,6 +68,20 @@ def updateWells():
     Notification('download')
     time.sleep(50)
 
+
+def qWellUpdate(ExcelWithAPI, folderPath_StateWells):
+    # The idea of this program is that it will pull data from the state website,
+    #(https://opendata.gis.utah.gov/datasets/utahDNR::utah-oil-and-gas-wells-paths/explore?location=39.512024%2C-111.338665%2C-1.00)
+    # and the list of wells that each entity owns (WEMWells ownership) and 
+    # color corrdinate the wells by company
     
-updateWells()
-  
+    #MOVE AND SAVE EXISTING WELL FILES
+    
+    #SAVE THE OLD FILES INTO SAVE FOLDER
+    
+    #MOVE NEW FILES INTO FOLDER THAT Q CALLS
+    
+    print("Done updating wells in QGIS")
+    
+
+#updateWells()
